@@ -25,7 +25,7 @@
 
 const APIController = (function() {
     const clientID = `95ofWRXE9TNMajndAtajSIGr61moKg8UHva9C8jswPwnIsKhhV`;
-    const clientSecret = `mE7btI0X2YuBtkK1cURlkOpwUaTWrb3JCIysdDpq`
+    const clientSecret = `iEGxRKohdA4MToAQZypx4eTJZx66ramkA8pcm7aZ`
     const grantType = 'client_credentials';
 
     // private methods
@@ -36,7 +36,7 @@ const APIController = (function() {
             headers: {'Accept': 'application/json, text/plain, */*',
                 'Content-Type':'application/x-www-form-urlencoded'}, // this line is important, if this content-type is not set it wont work
             body: 
-                'grant_type=client_credentials&client_id=95ofWRXE9TNMajndAtajSIGr61moKg8UHva9C8jswPwnIsKhhV&client_secret=mE7btI0X2YuBtkK1cURlkOpwUaTWrb3JCIysdDpq'
+                'grant_type=client_credentials&client_id=95ofWRXE9TNMajndAtajSIGr61moKg8UHva9C8jswPwnIsKhhV&client_secret=iEGxRKohdA4MToAQZypx4eTJZx66ramkA8pcm7aZ'
                 // 'client_id' : `5ofWRXE9TNMajndAtajSIGr61moKg8UHva9C8jswPwnIsKhhV`,
                 // 'client_secret' : `mE7btI0X2YuBtkK1cURlkOpwUaTWrb3JCIysdDpq`,
                 // 'grant_type' : 'client_credentials'
@@ -50,11 +50,13 @@ const APIController = (function() {
 
     const _getType = async () => {
 
-        const result = await fetch(`https://api.petfinder.com/v2/animals?type=dog&page=2`, {
+        const result = await fetch(`https://api.petfinder.com/v2/animals`, {
             method: 'GET',
+            // mode: "no-cors",
             headers: {
-                // 'Access-Control-Allow-Origin': '*',
-                'Authorization': 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NW9mV1JYRTlUTk1ham5kQXRhalNJR3I2MW1vS2c4VUh2YTlDOGpzd1B3bklzS2hoViIsImp0aSI6IjFkYjY0ZjkxZGM4OGE0OWEzN2RlOThkYmNhNjRjMDRlOTY5Mzk1NTVhYzk1ZGU1ZTVkODEyODlhNWM4NThiOWUxZjRkOTgxMzEwZDMxNDVkIiwiaWF0IjoxNzAzNjM5OTA1LCJuYmYiOjE3MDM2Mzk5MDUsImV4cCI6MTcwMzY0MzUwNSwic3ViIjoiIiwic2NvcGVzIjpbXX0.uY3plRPM7k5fXK0b-wB5wiFX6kZUedTg9TuFmzFlzogSB5BLDWxi_pPj3rGbZCnMvB60OY0EkfUJGXcW_UIQVRZjAQb3_3kQxtfeijcbed5Xxk6tKdqiU2WfcU8HqBnIZR1brfQC7S3w1uRcC-kjY61gXQbf_a6fiEENxBUJqcfU_OTCnC07gIPAQLwrW0439ANJfkjAlAC2YTIcE_KGkewi3sw9gVxcKpco_p_h1_xCgOJWqLnF92KSGVnE1sOEYZmn3iHxl1JwwoCnvWOzsj1HCtoUviRhX7do48cFk5G3eaLKiYFDT18R4lg-k-9NlRS5bGF8DO1gqpYBrnyPpw',}
+                'Accept': "application/json", 
+                'Access-Control-Allow-Origin': 'https://juliawalton.github.io/searchPaws/',
+                'Authorization' : ' Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NW9mV1JYRTlUTk1ham5kQXRhalNJR3I2MW1vS2c4VUh2YTlDOGpzd1B3bklzS2hoViIsImp0aSI6IjMyNzNjZWVkZjM4ZjA2ZDMwMzUzNzcxMzc1MzZkNDZiNTY5ZGQ5MzhmODFmYzI2M2M0NGQyMzlkZWU1YjMzZTNlMWE4ODZhNjIzYzRhODY3IiwiaWF0IjoxNzAzNjQyMTM0LCJuYmYiOjE3MDM2NDIxMzQsImV4cCI6MTcwMzY0NTczNCwic3ViIjoiIiwic2NvcGVzIjpbXX0.ktYpmdyYyrxPVe0uQO6EnVXda2KZXp9Y9s0bbijqLrrsTia5_WTF9U0OnXcq-TmVYrdKtknbIXdnQM4yH0BQo08az3vsywAIXoEv3q9D2u-wkB6jubPatI6ewwBehnrnu2SQ9TB5GEQ9T2C9ByQKNO9kgEy1Y9kWqKqkrgQDY9QXl1keM9qA_G3Cq28hHJ7ev6OX3dUkwlxhd8RJ_UWFoLiqYHmYM00OmowcukxCyK8O5Hq0TUJ95ncH9ogOBCu3rRIqe6cogaXcgVyj5lK4-nboy9a2sD-lR9Rbx64SbjQ8-zPKlXRYrV8KezQ6TsPA87XNtRNgB98EgY95x7vTbA'}
         })
         console.log(result)
         return result;
