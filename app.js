@@ -22,6 +22,67 @@
 // curl -d "grant_type=client_credentials&client_id={5ofWRXE9TNMajndAtajSIGr61moKg8UHva9C8jswPwnIsKhhV}&client_secret={mE7btI0X2YuBtkK1cURlkOpwUaTWrb3JCIysdDpq}" https://api.petfinder.com/v2/oauth2/token
 
 
+const petForm = document.querySelector('#pet-form');
+
+petForm.addEventListener('submit', fetchAnimals)
+
+// fetch animals from API
+function fetchAnimals(e) {
+    e.preventDefault();
+
+    let pets = {};
+
+    // get user input
+    const animal = document.querySelector('#animal').value;
+    const zip = document.querySelector('#zip').value;
+
+    // fetch pets
+    // const petsCalling = petsCall(userLocation, petType);
+
+
+pets.petsCall = function(userLocation, petType) {
+	console.log(userLocation, petType);
+	$.ajax({
+		url: pets.petUrl,
+		method: 'GET',
+    crossDomain: true,
+		dataType: 'jsonp',
+		data : {
+			key: pets.apiKey,
+			location: userLocation,
+    animal: petType,
+    sex: petSex,
+			format: 'json',
+			count: 10,
+			age: 'Senior',
+			status: 'A'
+		}  
+	})
+    
+    
+    
+    .then(function(results){
+        var petResults = results.petfinder.pets.pet;
+		console.log(petResults);
+		for (var i = 0; i < petResults.length; ++i) {
+        var petName = petResults[i].name.$t;
+        var petPhoto = petResults[i].media.photos.photo[0].$t;
+        console.log(petName);
+        console.log(petPhoto);
+            pets.availablePets.append('<p>' + petName + '</p>');
+        pets.availablePets.append('<div><img src="' + petPhoto + '"></div>')
+        }
+	});
+};
+
+$(document).ready(function() {
+	pets.form();
+});
+
+}
+
+
+
 
 const APIController = (function() {
     const clientID = `95ofWRXE9TNMajndAtajSIGr61moKg8UHva9C8jswPwnIsKhhV`;
@@ -50,16 +111,20 @@ const APIController = (function() {
 
     const _getType = async () => {
 
-        const result = await fetch(`https://api.petfinder.com/v2/animals`, {
+        const result = await fetch(`https://api.petfinder.com/v2/types`, {
             method: 'GET',
             // mode: "no-cors",
             headers: {
-                'Accept': "application/json", 
-                'Access-Control-Allow-Origin': 'https://juliawalton.github.io/searchPaws/',
-                'Authorization' : ' Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NW9mV1JYRTlUTk1ham5kQXRhalNJR3I2MW1vS2c4VUh2YTlDOGpzd1B3bklzS2hoViIsImp0aSI6IjMyNzNjZWVkZjM4ZjA2ZDMwMzUzNzcxMzc1MzZkNDZiNTY5ZGQ5MzhmODFmYzI2M2M0NGQyMzlkZWU1YjMzZTNlMWE4ODZhNjIzYzRhODY3IiwiaWF0IjoxNzAzNjQyMTM0LCJuYmYiOjE3MDM2NDIxMzQsImV4cCI6MTcwMzY0NTczNCwic3ViIjoiIiwic2NvcGVzIjpbXX0.ktYpmdyYyrxPVe0uQO6EnVXda2KZXp9Y9s0bbijqLrrsTia5_WTF9U0OnXcq-TmVYrdKtknbIXdnQM4yH0BQo08az3vsywAIXoEv3q9D2u-wkB6jubPatI6ewwBehnrnu2SQ9TB5GEQ9T2C9ByQKNO9kgEy1Y9kWqKqkrgQDY9QXl1keM9qA_G3Cq28hHJ7ev6OX3dUkwlxhd8RJ_UWFoLiqYHmYM00OmowcukxCyK8O5Hq0TUJ95ncH9ogOBCu3rRIqe6cogaXcgVyj5lK4-nboy9a2sD-lR9Rbx64SbjQ8-zPKlXRYrV8KezQ6TsPA87XNtRNgB98EgY95x7vTbA'}
+                // 'Accept': "application/json",
+                // 'Content-Type': 'application/json',
+                // 'Access-Control-Allow-Headers': 'Content-Type',
+                // 'Access-Control-Allow-Origin': '*',
+                'Authorization' : ' Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NW9mV1JYRTlUTk1ham5kQXRhalNJR3I2MW1vS2c4VUh2YTlDOGpzd1B3bklzS2hoViIsImp0aSI6ImM1NDZlZDM1ZjBlM2RkMDdlOWMxNzcwNTRkYzc1NWQ1YmY2ZmM2NmI3MzhiY2FlOWM4MmYyYzI0ZjBlNjgwMGJhYzZlNTJmNzc4YTY0YjE4IiwiaWF0IjoxNzAzODcwNjI4LCJuYmYiOjE3MDM4NzA2MjgsImV4cCI6MTcwMzg3NDIyOCwic3ViIjoiIiwic2NvcGVzIjpbXX0.WVkykcYTE4_JFyn8_U0mAflxoGw9aLiHR4HvYGO79xC8W7PRqXWw62ozjQpzdnmosrzPvp16mXU_2srjDuB1koyxXEODhOfWJjKGjHLrZsz38Z5Tz82AmlnnViYbCSOivthGs8izKewplCVokcv_DL5EfRQ2niPcIpFpXf-PdKMNCJunVTLfsPl3MfW9qIXOEsuvGIjrEzajIbq7EApST7w7vBTFM6tzJHe6pgY8L6ZynXlxgf4Ha07G6hARWbbmZoXvjVlpZ6pGuv6bFlSheA1btqCRJlADzFq-I6vCDP0HP3Y9KFTvdM3c9m6ZcuRxFpxQLfjRsjM7wWmUEIfArA'}
         })
-        console.log(result)
-        return result;
+
+        const dogs = await result.json();
+        console.log(dogs)
+        return dogs;
     }
     console.log(_getToken())
     // console.log(_getType())
