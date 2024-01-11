@@ -2,3 +2,76 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color:rgb(204, 255, 212) ;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Card */
+.card {
+    background: #04376b;
+    padding: 5px;
+    color: white;
+}
+
+.card img {
+    width: 100%;
+}
+
+.card-body {
+    padding: 10px;
+    font-size: 20px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    transition: all 0.5s ease-in-out;
+    background: #0a4b8f;
+}
+
+.supporting-text {
+    font-size: 1rem;
+}
+
+.main-header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+    font-size: 1.3rem;
+}
+
+.main-header li a:hover {
+    text-decoration: underline;
+    color: rgb(180, 10, 247);
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 10px;
+}
+
+.logo {
+    font-size: 2rem;
+}

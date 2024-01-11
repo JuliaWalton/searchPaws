@@ -3,25 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="styles.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>SearchPaws</h1>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo"><a href="/">SearchPaws</a></div>
+            <nav>
+                <ul>
+                    <li>
+                        <a class="nav-link" href="/index.html">Dogs</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/shows.html">Cats</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <div class="container">
         <form id="pet-form">
             <div class="form-group">
-                <label for="animal">Animal</label>
-                <select id="animal" class="form-control">
-                    <option value="dog">Dog</option>
-                    <option value="cat">Cat</option>
-                </select>
-                <input type="text" id="zip" class="form-control" placeholder="Enter your zipcode">
+                <label for="zip">Zip Code</label>
+                <input id="zip" type="text" id="zip" class="form-control" placeholder="Enter your zipcode">
                 <input type="submit" value="Find" class="btn">
+                <label for="gender">Gender</label>
+                <select id="gender" class="form-control">
+                    <option value="dog">Male</option>
+                    <option value="cat">Female</option>
+                </select>
+                <label for="gender">Size</label>
+                <select id="breed" class="form-control">
+                    <option value="dog">Small</option>
+                    <option value="dog">Medium</option>
+                    <option value="cat">Large</option>
+                    <option value="cat">XLarge</option>
+                </select>
+                <label for="gender">Age</label>
+                <select id="breed" class="form-control">
+                    <option value="dog">Baby</option>
+                    <option value="cat">Young</option>
+                    <option value="cat">Adult</option>
+                    <option value="cat">Senior</option>
+                </select>
+                <!-- <label for="gender">Breed</label>
+                <select id="breed" class="form-control">
+                    <option value="dog">Male</option>
+                    <option value="cat">Female</option>
+                </select> -->
             </div>
         </form>
 
-        <div id="results">
+    <section class="container">
+        <h2>Spotlight Dogs</h2>
+        <div id="adoptable-dogs" class="grid">
+            <!-- start of one card -->
+            <!-- <div class="card">
+                <a href="index.html?id=1">
+                    <img src="images/puppy-placeholder.jpg" class="card-img-top" alt="Movie Title" />
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Puppy Name</h5>
+                    <p class="card-text">
+                        <p class="supporting-text">Gender</p>
+                        <p class="supporting-text">Breed</p>
+                        <small class="text-muted">Distance: XX/XX/XXXX</small>
+                    </p>
+                </div>
+            </div> -->
+            <!-- end of one card -->
         </div>
     </div>
 

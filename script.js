@@ -1,4 +1,4 @@
-const APIController = (function() {
+function APIController(endpoint) {
     const clientID = `95ofWRXE9TNMajndAtajSIGr61moKg8UHva9C8jswPwnIsKhhV`;
     const clientSecret = `iEGxRKohdA4MToAQZypx4eTJZx66ramkA8pcm7aZ`
     const grantType = 'client_credentials';
@@ -26,10 +26,11 @@ const APIController = (function() {
 
         async function _getType() {
 
+        // you need to have the await here!!!
         const accessToken = await _getToken();
         console.log(accessToken)
 
-        const result2 = await fetch(`https://api.petfinder.com/v2/animals?type=dog&page=2`, {
+        const result2 = await fetch(`https://api.petfinder.com/v2/animals?type=dog&page=10`, {
             method: 'GET',
             // mode: "no-cors",
             headers: {
@@ -50,7 +51,82 @@ const APIController = (function() {
 
     // _getToken();
     return _getType();
-})
+}
 
 
-console.log(APIController())
+// console.log(APIController(33455))
+
+
+// display 20 dogs
+async function displayDogs() {
+    // use destructuring {} to get just the results array from that object
+    const { animals } = await APIController();
+    console.log(animals);
+
+    animals.forEach(dog => {
+        const dogCardDiv = document.createElement('div');
+        dogCardDiv.classList.add('card');
+        dogCardDiv.innerHTML = `
+          <a href="index.html?id=${dog.id}">
+            ${
+                dog.photos.length >= 1
+                ? `<img
+                    src="${dog.photos[0].full}"
+                    class="card-img-top"
+                    alt="${dog.name}"
+                    />` 
+                : `<img
+                    src="../images/no-image.jpg"
+                    class="card-img-top"
+                    alt="${dog.name}"
+                    />` 
+            }
+          </a>
+          <div class="card-body">
+          <h5 class="card-title">${dog.name}</h5>
+                    <p class="card-text">
+                        <p class="supporting-text">${dog.gender}</p>
+                        <p class="supporting-text">${dog.breeds.primary}</p>
+                        <small class="text-muted">Distance: XX/XX/XXXX</small>
+                    </p>
+          </div>`;
+
+          document.querySelector('#adoptable-dogs').appendChild(dogCardDiv)
+    })
+}
+
+const globalState = {
+    currentPage: window.location.pathname,
+};
+
+
+// Below is a router, so wherever we want to run a function in response to a certain page, we'll put it inside that corresponding case
+
+// Init app
+function init() {
+    switch(globalState.currentPage) {
+        case '/':
+        case '/index.html':
+            displayDogs();
+            break;
+        // case '/shows.html':
+        //     displayPopularShows();
+        //     break;
+        // case '/movie-details.html':
+        //     console.log('Movie Details');
+        //     break;
+        // case '/tv-details.html':
+        //     console.log('TV Details');
+        //     break;
+        // case '/search.html':
+        //     console.log('Search');
+        //     break;
+    }
+
+    // highlightActiveLink();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+
+// https://api.petfinder.com/v2/animals?type=dog&page=2&location=${endpoint}`, {
