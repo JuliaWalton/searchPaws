@@ -32,11 +32,13 @@
                 <!-- <input type="submit" value="Find" class="btn"> -->
                 <label for="gender">Gender</label>
                 <select id="gender" class="form-control">
-                    <option value="dog">Male</option>
-                    <option value="cat">Female</option>
+                    <option value="none">No Preference</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
                 </select>
-                <label for="size">Size</label>
+                <!-- <label for="size">Size</label>
                 <select id="size" class="form-control">
+                    <option value="none">No Preference</option>
                     <option value="dog">Small</option>
                     <option value="dog">Medium</option>
                     <option value="cat">Large</option>
@@ -44,16 +46,24 @@
                 </select>
                 <label for="age">Age</label>
                 <select id="age" class="form-control">
+                    <option value="none">No Preference</option>
                     <option value="dog">Baby</option>
                     <option value="cat">Young</option>
                     <option value="cat">Adult</option>
                     <option value="cat">Senior</option>
                 </select>
-                <!-- <label for="gender">Breed</label>
+                <label for="age">Breed</label>
                 <select id="breed" class="form-control">
-                    <option value="dog">Male</option>
-                    <option value="cat">Female</option>
-                </select> -->
+                    <option value="none">No Preference</option>
+                    <option value="dog">Baby</option>
+                    <option value="cat">Young</option>
+                    <option value="cat">Adult</option>
+                    <option value="cat">Senior</option>
+                </select>
+                <label for="distance">Distance</label>
+                <input class="required" type="number" id="distance" min="1" max="500" placeholder="10 miles"> -->
+                
+                
             </div>
             <!-- <a href="/new.html"> -->
                 <button>Submit</button>
@@ -61,7 +71,7 @@
         </form>
 
     <section class="container">
-        <h2>Spotlight Dogs</h2>
+        <h2>Recently Added Animals</h2>
         <div id="adoptable-dogs" class="grid">
             <!-- start of one card -->
             <!-- <div class="card">

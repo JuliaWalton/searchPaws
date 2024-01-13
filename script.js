@@ -1,9 +1,17 @@
+const globalState = {
+    currentPage: window.location.pathname,
+};
+// console.log(globalState)
 
-function APIController(e) {
+
+async function APIController(endpoint) {
+    console.log(endpoint)
 
     const clientID = `95ofWRXE9TNMajndAtajSIGr61moKg8UHva9C8jswPwnIsKhhV`;
     const clientSecret = `iEGxRKohdA4MToAQZypx4eTJZx66ramkA8pcm7aZ`
     const grantType = 'client_credentials';
+    const baseUrl = "https://api.petfinder.com/v2/animals?type=dog";
+    const url = `${baseUrl}${endpoint}`;
 
     // private methods
     async function _getToken() {
@@ -15,38 +23,88 @@ function APIController(e) {
                 `grant_type=${grantType}&client_id=${clientID}&client_secret=${clientSecret}`
             
         });
-
         const data = await result.json();
         console.log(data);
         // console.log(data.access_token);
         return data.access_token;
     }
 
-        async function _getType() {
+        async function _makeCall() {
         // you need to have the await here!!!
         const accessToken = await _getToken();
         // console.log(accessToken)
 
-        const result2 = await fetch(`https://api.petfinder.com/v2/animals?type=dog&page=1`, {
+        const result2 = await fetch(`${url}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization' : ' Bearer ' + `${accessToken}`}
         })
-
         const dogs = await result2.json();
         console.log(dogs)
+
+        displayDogs(dogs.animals)
         return dogs;
     }
-    return _getType();
+    return _makeCall();
 }
+
+// const zip = document.querySelector('#zip').value;
+// const gender = document.querySelector('#gender').value;
+// console.log(gender)
+const petForm = document.getElementById('pet-form');
+
+petForm.addEventListener('submit', executeApiCalls)
+
+async function executeApiCalls(e) {
+    const zip = document.querySelector('#zip').value;
+    const gender = document.querySelector('#gender').value;
+    console.log(gender)
+        e.preventDefault(); 
+    // Example API calls
+    if (zip !== "" && gender === 'none') {
+        const result1 = await APIController(`&location=${zip}`);
+    }
+    else if (zip === "" && gender === 'none') {
+        const result = await APIController(``);
+    }
+    else if (gender !== 'none' && zip !== "") {
+        const result2 = await APIController(`&location=${zip}&gender=${gender}`);
+    }
+
+
+
+//   const result2 = await makeApiCall(`&location=${gender}`, { param2: "value2" });
+//   const result3 = await makeApiCall("endpoint3"); 
+
+//   Use the results as needed
+//   if (zip !== "") {
+//     result1;
+//     displayDogs();
+//   }
+
+//   if (result2) {
+//     console.log("Result 2:", result2);
+//   }
+
+//   if (result3) {
+//     console.log("Result 3:", result3);
+//   }
+}
+
+// Execute the API calls
+// executeApiCalls();
+
+
+
 
 
 // display 20 dogs
-async function displayDogs() {
+async function displayDogs(animals) {
+    document.querySelector('#adoptable-dogs').innerHTML = "";
     // use destructuring {} to get just the results array from that object
-    const { animals } = await APIController();
+    // const { animals } = await APIController();
     console.log(animals);
 
     animals.forEach(dog => {
@@ -81,24 +139,18 @@ async function displayDogs() {
     })
 }
 
-const globalState = {
-    currentPage: window.location.pathname,
-};
 
-console.log(globalState)
 // Below is a router, so wherever we want to run a function in response to a certain page, we'll put it inside that corresponding case
 
-
-// Init app
 function init() {
     switch(globalState.currentPage) {
         // case '/':
         case '/index.html':
-            displayDogs()
+            const result = APIController(``);
             break;
-        case `/new.html`:
-            displayLocationDogs()
-            break;
+        // case `/new.html`:
+        //     displayLocationDogs()
+        //     break;
         // case '/movie-details.html':
         //     console.log('Movie Details');
         //     break;
@@ -115,106 +167,113 @@ function init() {
 
 document.addEventListener('DOMContentLoaded', init);
 
-const petForm = document.getElementById('pet-form');
 
-petForm.addEventListener('submit', fetchByParams)
 
-function fetchByParams(e) {
-    e.preventDefault(); 
 
-    const zip = document.querySelector('#zip').value;
-    petForm.action = `${window.location.pathname}`;
-    console.log(petForm.action)
 
-    nextStep();
-    return zip;
-}
 
-function nextStep() {
-    const zip = document.querySelector('#zip').value;
-    console.log(zip)
-    if (zip !== "") { 
-    const clientID = `95ofWRXE9TNMajndAtajSIGr61moKg8UHva9C8jswPwnIsKhhV`;
-    const clientSecret = `iEGxRKohdA4MToAQZypx4eTJZx66ramkA8pcm7aZ`
-    const grantType = 'client_credentials';
 
-    // private methods
-    async function _getToken() {
-        const result = await fetch(`https://api.petfinder.com/v2/oauth2/token`, {
-            method: 'POST',
-            headers: {'Accept': 'application/json, text/plain, */*',
-                'Content-Type':'application/x-www-form-urlencoded'}, // this line is important, if this content-type is not set it wont work
-            body: 
-                `grant_type=${grantType}&client_id=${clientID}&client_secret=${clientSecret}`
+
+// const petForm = document.getElementById('pet-form');
+
+// petForm.addEventListener('submit', fetchByParams)
+
+// // function fetchByParams(e) {
+//     e.preventDefault(); 
+
+//     const zip = document.querySelector('#zip').value;
+//     petForm.action = `${window.location.pathname}`;
+//     console.log(petForm.action)
+
+//     nextStep();
+//     return zip;
+// }
+
+// function nextStep() {
+//     const zip = document.querySelector('#zip').value;
+//     console.log(zip)
+//     if (zip !== "") { 
+//     const clientID = `95ofWRXE9TNMajndAtajSIGr61moKg8UHva9C8jswPwnIsKhhV`;
+//     const clientSecret = `iEGxRKohdA4MToAQZypx4eTJZx66ramkA8pcm7aZ`
+//     const grantType = 'client_credentials';
+
+//     // private methods
+//     async function _getToken() {
+//         const result = await fetch(`https://api.petfinder.com/v2/oauth2/token`, {
+//             method: 'POST',
+//             headers: {'Accept': 'application/json, text/plain, */*',
+//                 'Content-Type':'application/x-www-form-urlencoded'}, // this line is important, if this content-type is not set it wont work
+//             body: 
+//                 `grant_type=${grantType}&client_id=${clientID}&client_secret=${clientSecret}`
             
-        });
+//         });
 
-        const data = await result.json();
-        console.log(data);
-        // console.log(data.access_token);
-        return data.access_token;
-    }
+//         const data = await result.json();
+//         console.log(data);
+//         // console.log(data.access_token);
+//         return data.access_token;
+//     }
 
-        async function _getType() {
-        // you need to have the await here!!!
-        const accessToken = await _getToken();
-        // console.log(accessToken)
+//         async function _getType() {
+//         // you need to have the await here!!!
+//         const accessToken = await _getToken();
+//         // console.log(accessToken)
 
-        const result2 = await fetch(`https://api.petfinder.com/v2/animals?type=dog&location=${zip}`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization' : ' Bearer ' + `${accessToken}`}
-        })
+//         const result2 = await fetch(`https://api.petfinder.com/v2/animals?type=dog&location=${zip}`, {
+//             method: 'GET',
+//             headers: {
+//                 'Accept': 'application/json',
+//                 'Content-Type': 'application/json',
+//                 'Authorization' : ' Bearer ' + `${accessToken}`}
+//         })
 
-        const dogs = await result2.json();
-        console.log(dogs)
-        return dogs;
-    }
-    // displayLocationDogs();
-    return _getType();
-}
-}
+//         const dogs = await result2.json();
+//         console.log(dogs)
+//         return dogs;
+//     }
+//     // displayLocationDogs();
+//     return _getType();
+// }
+// }
 
-// display 20 dogs
-async function displayLocationDogs() {
-    document.querySelector('#adoptable-dogs').innerHTML = "";
-    // use destructuring {} to get just the results array from that object
-    const { animals } = await nextStep();
-    console.log(animals);
+// // display 20 dogs
+// async function displayLocationDogs() {
+//     document.querySelector('#adoptable-dogs').innerHTML = "";
+//     // use destructuring {} to get just the results array from that object
+//     const { animals } = await nextStep();
+//     console.log(animals);
 
-    animals.forEach(dog => {
-        const dogCardDiv = document.createElement('div');
-        dogCardDiv.classList.add('card');
-        dogCardDiv.innerHTML = `
-          <a href="index.html?id=${dog.id}">
-            ${
-                dog.photos.length >= 1
-                ? `<img
-                    src="${dog.photos[0].full}"
-                    class="card-img-top"
-                    alt="${dog.name}"
-                    />` 
-                : `<img
-                    src="../images/no-image.jpg"
-                    class="card-img-top"
-                    alt="${dog.name}"
-                    />` 
-            }
-          </a>
-          <div class="card-body">
-          <h5 class="card-title">${dog.name}</h5>
-                    <p class="card-text">
-                        <p class="supporting-text">${dog.gender}</p>
-                        <p class="supporting-text">${dog.breeds.primary}</p>
-                        <small class="text-muted">Distance: ${dog.distance}</small>
-                    </p>
-          </div>`;
+//     animals.forEach(dog => {
+//         const dogCardDiv = document.createElement('div');
+//         dogCardDiv.classList.add('card');
+//         dogCardDiv.innerHTML = `
+//           <a href="index.html?id=${dog.id}">
+//             ${
+//                 dog.photos.length >= 1
+//                 ? `<img
+//                     src="${dog.photos[0].full}"
+//                     class="card-img-top"
+//                     alt="${dog.name}"
+//                     />` 
+//                 : `<img
+//                     src="../images/no-image.jpg"
+//                     class="card-img-top"
+//                     alt="${dog.name}"
+//                     />` 
+//             }
+//           </a>
+//           <div class="card-body">
+//           <h5 class="card-title">${dog.name}</h5>
+//                     <p class="card-text">
+//                         <p class="supporting-text">${dog.gender}</p>
+//                         <p class="supporting-text">${dog.breeds.primary}</p>
+//                         <small class="text-muted">Distance: ${dog.distance}</small>
+//                     </p>
+//           </div>`;
 
-          document.querySelector('#adoptable-dogs').appendChild(dogCardDiv)
-    })
-}
+//           document.querySelector('#adoptable-dogs').appendChild(dogCardDiv)
+//     })
+// }
 
 
 // // https://api.petfinder.com/v2/animals?type=dog&page=2&location=${endpoint}`, {
