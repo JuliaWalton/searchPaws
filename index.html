@@ -3,15 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐾
+    </text></svg>">
     <!-- stylesheet -->
-    <link rel="stylesheet" href="styles.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&family=Work+Sans:wght@200;300;400;500;700&display=swap"
+    rel="stylesheet">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <title>SearchPaws</title>
 </head>
 <body>
+    <article class="welcome">
     <header class="main-header">
-        <div class="container">
-            <div class="logo"><a href="/">SearchPaws</a></div>
             <nav>
+                <div class="logo">
+                <a href="index.html">SearchPaws
+                <img src="images/paw-prints.png" alt="paw prints" width="30px"></a>
+            </div>
                 <ul>
                     <li>
                         <a class="nav-link" href="/index.html">Dogs</a>
@@ -19,10 +32,39 @@
                     <li>
                         <a class="nav-link" href="/shows.html">Cats</a>
                     </li>
+                    <li>
+                        <a class="nav-link" href="/shows.html">
+                            <i class="fas fa-heart"></i>
+                        </a>
+                    </li>
                 </ul>
             </nav>
-        </div>
     </header>
+    <main>
+        <div class="welcome-hero">
+            <div class="welcome-dynamic-callout fanout">
+                <div class="callout one">
+                    <h2>Save your most compatable furry friends</h2>
+                </div>
+                <div class="callout two">
+                    <h2>Discover local dogs and cats in need</h2>
+                </div>
+                <div class="callout three">
+                    <h2>Browse by category for your new BFF</h2>
+                </div>
+            </div>
+            <div class="scroll">
+                <p>scroll to search</p>
+                <img src="images/mouse.png" width="30px" alt="">
+            </div>
+            <div class="bg-img1"></div>
+            <div class="bg-img2"></div>
+        </div>
+        </article>
+
+
+
+
 
     <div class="container">
         <form id="pet-form">
@@ -92,7 +134,7 @@
     </div>
 
 
-
-    <script src="script.js"></script>
+    </main>
+    <script src="solution.js"></script>
 </body>
 </html>

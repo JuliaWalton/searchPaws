@@ -1,0 +1,132 @@
+@use 'root';
+
+.welcome {
+    height: 100vh;
+    margin-inline: 2rem; 
+}
+
+// .callout {
+    
+// }
+
+.welcome-dynamic-callout {
+    display: grid;
+    gap: 1rem;
+    justify-content: start;
+}
+
+.fanout {
+    height: 550px;
+    width: 800px;
+    margin: 5rem auto 0;
+    position: relative;
+}
+
+.fanout .callout {
+    position: absolute;
+    text-align: center;
+    padding-block: 1.5rem;
+    font-size: 1.5rem;
+    // left: 200px;
+    width: 800px;
+    height: auto;
+    // border: 12px solid #ffe;
+    background-color: white;
+    // padding: 1rem 2rem;
+    box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);
+    transform-origin: center 100px;
+    transition: all .6s linear;
+    z-index: 100;
+
+}
+
+.fanout .callout:first-child {
+    background-color: root.$secondary-color;
+    color: white;
+    transform: rotate(5deg);
+    top: 50px;
+}
+
+.fanout .callout.two {
+    background-color: white;
+    color: root.$primary-color;
+    top: 150px;
+}
+
+.fanout .callout:last-child {
+    background-color: root.$primary-accent-color;
+    color: root.$primary-color;
+    transform: rotate(-5deg);
+    top: 250px;
+}
+
+.fanout:hover .callout:first-child {
+    transform: rotate(10deg);
+    top: 0;
+}
+
+.fanout:hover .callout.two {
+    transform: rotate(-2deg);
+    // top: 200px;
+}
+
+.fanout:hover .callout:last-child {
+    transform: rotate(5deg);
+    top: 300px;
+}
+
+.welcome-hero {
+    position: relative;
+    height: 680px;
+}
+
+.scroll img {
+    margin: auto;
+    padding-top: .5rem;
+}
+
+.scroll {
+    display: grid;
+    // justify-content: center;
+    align-content: center;
+    margin: auto;
+    text-align: center;
+    border-radius: 50%;
+    border: 1px solid white;
+    aspect-ratio: 1/1;
+    width: 200px;
+}
+
+.bg-img1 {
+    background: url('../images/dog_mascot.png');
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: bottom;
+    width: 400px;
+    height: 800px;
+    bottom: 0;
+    left: 30px;
+    // bottom: 50;
+    // right: 0;
+    z-index: 5;
+}
+
+.bg-img2 {
+    background: url('../images/cat_mascot.png');
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: 75%;
+    background-position: bottom;
+    width: 600px;
+    height: 800px;
+    right: -100px;
+    bottom: -200px;
+    z-index: 5;
+}
+
+@media (max-width: 580px) {
+    .bg-img2 {
+        background-image: none;
+    }
+}

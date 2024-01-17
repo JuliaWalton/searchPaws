@@ -1,0 +1,111 @@
+@use 'root';
+// *******************************************
+// CSS reset
+// *******************************************
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+html,
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    overflow: auto;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+// custom highlight color
+::selection {
+    background-color: root.$primary-accent-color;
+    color: root.$neutral-black;
+}
+
+::-moz-selection {
+    background-color: root.$primary-accent-color;
+    color: root.$neutral-black;
+}
+
+::-o-selection {
+    background-color: root.$primary-accent-color;
+    color: root.$neutral-black;
+}
+
+::-ms-selection {
+    background-color: root.$primary-accent-color;
+    color: root.$neutral-black;
+}
+
+::-webkit-selection {
+    background-color: root.$primary-accent-color;
+    color: root.$neutral-black;
+}

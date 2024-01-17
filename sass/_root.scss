@@ -1,0 +1,21 @@
+// *******************************************
+// SASS Variables
+// *******************************************
+
+$primary-font: 'work sans', sans-serif;
+
+$fw-semibold: 500;
+$fw-bold: 600;
+
+$fs-xlarge: clamp(3rem, 2.8rem + 1vw, 4rem);
+;
+$fs-reg: 1rem;
+$fs-small: clamp(0.85rem, 0.82rem + 0.15000000000000002vw, 1rem);
+
+$radius: 2rem;
+
+$primary-accent-color: #a2f084;
+$primary-color: #8488f0;
+$secondary-color: #f29b72;
+$neutral-white: rgb(255, 255, 255);
+$neutral-black: rgb(0, 0, 0);
