@@ -1,8 +1,10 @@
 const globalState = {
     currentPage: window.location.pathname,
 };
-// console.log(globalState)
+console.log(globalState)
 
+
+// to get breeds use this /v2/types/dog
 
 async function APIController(endpoint) {
     console.log(endpoint)
@@ -10,7 +12,7 @@ async function APIController(endpoint) {
     const clientID = `95ofWRXE9TNMajndAtajSIGr61moKg8UHva9C8jswPwnIsKhhV`;
     const clientSecret = `iEGxRKohdA4MToAQZypx4eTJZx66ramkA8pcm7aZ`
     const grantType = 'client_credentials';
-    const baseUrl = "https://api.petfinder.com/v2/animals?type=dog";
+    const baseUrl = "https://api.petfinder.com/v2/animals";
     const url = `${baseUrl}${endpoint}`;
 
     // private methods
@@ -55,7 +57,8 @@ async function APIController(endpoint) {
 // console.log(gender)
 const petForm = document.getElementById('pet-form');
 
-petForm.addEventListener('submit', executeApiCalls)
+
+    petForm.addEventListener('submit', executeApiCalls)
 
 async function executeApiCalls(e) {
     const zip = document.querySelector('#zip').value;
@@ -64,17 +67,14 @@ async function executeApiCalls(e) {
         e.preventDefault(); 
     // Example API calls
     if (zip !== "" && gender === 'none') {
-        const result1 = await APIController(`&location=${zip}`);
+        const result1 = await APIController(`?type=dog&location=${zip}`);
     }
     else if (zip === "" && gender === 'none') {
         const result = await APIController(``);
     }
     else if (gender !== 'none' && zip !== "") {
-        const result2 = await APIController(`&location=${zip}&gender=${gender}`);
+        const result2 = await APIController(`?type=dog&location=${zip}&gender=${gender}`);
     }
-
-
-
 //   const result2 = await makeApiCall(`&location=${gender}`, { param2: "value2" });
 //   const result3 = await makeApiCall("endpoint3"); 
 
@@ -91,7 +91,9 @@ async function executeApiCalls(e) {
 //   if (result3) {
 //     console.log("Result 3:", result3);
 //   }
+
 }
+
 
 // Execute the API calls
 // executeApiCalls();
@@ -111,36 +113,136 @@ async function displayDogs(animals) {
         const dogCardDiv = document.createElement('div');
         dogCardDiv.classList.add('card');
         dogCardDiv.innerHTML = `
-          <a href="index.html?id=${dog.id}">
+          <a href="animal-details.html?id=${dog.id}">
             ${
                 dog.photos.length >= 1
                 ? `<img
                     src="${dog.photos[0].full}"
                     class="card-img-top"
-                    alt="${dog.name}"
+                    alt="image of ${dog.name}"
                     />` 
                 : `<img
                     src="../images/no-image.jpg"
                     class="card-img-top"
-                    alt="${dog.name}"
+                    alt="there is no image for ${dog.name}"
                     />` 
             }
           </a>
           <div class="card-body">
           <h5 class="card-title">${dog.name}</h5>
                     <p class="card-text">
+                    <p class="supporting-text">${dog.age}</p>
                         <p class="supporting-text">${dog.gender}</p>
                         <p class="supporting-text">${dog.breeds.primary}</p>
-                        
-                    </p>
+                        ${ dog.distance === null
+                        ? `<p class="supporting-text">Location not specified</p>` 
+                        : `<p class="supporting-text">${roundMiles(dog.distance)} miles away</p>`
+                        }
           </div>`;
+        
 
           document.querySelector('#adoptable-dogs').appendChild(dogCardDiv)
     })
 }
 
+function roundMiles(dogdistance) {
+    return Math.round(dogdistance);
+}
+console.log(window.location.search.split('=')[0]);
+const animalID = window.location.search.split('=')[1];
+
+
+// const cards = document.querySelectorAll('card');
+
+// cards.forEach((card) => {
+//     card.addEventListener('click', displayAnimalDetails)
+//     console.log('wtf')
+// })
+
+// display animal details
+async function displayAnimalDetails() {
+    console.log(window.location.search);
+    const animalID =  window.location.search.split('=')[1];
+    
+    const dog = await APIController(`/${animalID}`);
+    console.log(dog)
+
+    const div = document.createElement('div');
+    div.innerHTML = `
+        <div class="details-top">
+          <div>
+            ${
+                dog.animal.photos.length >= 1
+                ? `<img
+                    src="${dog.animal.photos[0].full}"
+                    class="card-img-top"
+                    alt="image of ${dog.animal.name}"
+                    />` 
+                : `<img
+                    src="../images/no-image.jpg"
+                    class="card-img-top"
+                    alt="there is no image for ${dog.animal.name}"
+                    />` 
+            }
+          </div>
+          <div>
+            <h2>${dog.animal.name}</h2>
+            
+
+            </ul>
+            <a href="${dog.animal.url}" target="_blank" class="btn">Visit Shelter Homepage</a>
+          </div>
+        </div>
+        <div class="details-bottom">
+          <h2>Movie Info</h2>
+          <ul>
+          </ul>
+          <h4>Production Companies</h4>
+        </div>`;
+
+        document.querySelector('#animal-details').appendChild(div);
+
+}
+
+
+
+
+
+
+
+// <p>
+//               <i class="fas fa-star text-primary"></i>
+//               ${movie.vote_average.toFixed(1)} / 10
+//             </p>
+//             <p class="text-muted">Release Date: ${movie.release_date}</p>
+//             <p>
+//               ${movie.overview}
+//             </p>
+//             <h5>Genres</h5>
+//             <ul class="list-group">
+//             ${movie.genres.map((genre) => `<li>${genre.name}</li>`).join('')}
+
+
+
+
+
+
+
+
+
+
+
+
+// const cards = document.querySelectorAll('card');
+
+// cards.forEach((card) => {
+//     card.addEventListener('click', displayAnimalDetails)
+//     console.log('wtf')
+// })
+
 
 // Below is a router, so wherever we want to run a function in response to a certain page, we'll put it inside that corresponding case
+console.log(globalState.currentPage);
 
 function init() {
     switch(globalState.currentPage) {
@@ -148,9 +250,9 @@ function init() {
         case '/index.html':
             const result = APIController(``);
             break;
-        // case `/new.html`:
-        //     displayLocationDogs()
-        //     break;
+        case `/animal-details.html`:
+            displayAnimalDetails()
+            break;
         // case '/movie-details.html':
         //     console.log('Movie Details');
         //     break;

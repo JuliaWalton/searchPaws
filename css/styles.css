@@ -148,11 +148,60 @@ nav {
   padding: 0 20px 10px;
 }
 
+.pet-form {
+  padding: 2rem 10rem;
+  background-color: #f29b72;
+  width: 100%;
+}
+
+.pet-form h1 {
+  padding-bottom: 1rem;
+}
+
+.btn {
+  background-color: #8488f0;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.btn:hover, .btn:focus {
+  background-color: #a2f084;
+  color: #8488f0;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 100px 200px 100px 200px 100px 200px;
+  gap: 1rem;
+}
+
+.form-group label {
+  justify-self: end;
+}
+
+.btn.submit {
+  grid-column: 1/3;
+  width: 50%;
+}
+
+@media (max-width: 1280px) {
+  .form-group {
+    grid-template-columns: 100px 200px 100px 200px;
+  }
+}
+@media (max-width: 900px) {
+  .form-group {
+    grid-template-columns: 100px 200px;
+  }
+}
 .container {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
 }
 
 /* Grid */
@@ -171,6 +220,12 @@ nav {
 
 .card img {
   width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-img-top {
+  height: 300px;
 }
 
 .card-body {
@@ -188,8 +243,42 @@ nav {
   font-size: 1rem;
 }
 
+.container h2 {
+  font-size: 2rem;
+  padding-bottom: 1rem;
+}
+
+/* Movie Details */
+.details-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50px 0 30px;
+}
+
+.details-top img {
+  width: 400px;
+  height: 100%;
+  margin-right: 60px;
+  object-fit: cover;
+}
+
+.details-top p {
+  margin: 20px 0;
+}
+
+.details-top .btn {
+  margin-top: 20px;
+}
+
+.details-bottom li {
+  margin: 15px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #fff;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
 .welcome {
-  height: 100vh;
   margin-inline: 2rem;
 }
 
@@ -256,7 +345,7 @@ nav {
 
 .welcome-hero {
   position: relative;
-  height: 680px;
+  height: 600px;
 }
 
 .scroll img {
@@ -265,14 +354,17 @@ nav {
 }
 
 .scroll {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
   display: grid;
   align-content: center;
-  margin: auto;
   text-align: center;
   border-radius: 50%;
   border: 1px solid white;
   aspect-ratio: 1/1;
-  width: 200px;
+  width: 150px;
 }
 
 .bg-img1 {

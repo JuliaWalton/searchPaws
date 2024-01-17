@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,13 +27,13 @@
             </div>
                 <ul>
                     <li>
-                        <a class="nav-link" href="/index.html">Dogs</a>
+                        <a class="nav-link" href="/dogs.html">Dogs</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="/shows.html">Cats</a>
+                        <a class="nav-link" href="/cats.html">Cats</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="/shows.html">
+                        <a class="nav-link" href="/saved.html">
                             <i class="fas fa-heart"></i>
                         </a>
                     </li>
@@ -60,65 +60,66 @@
             <div class="bg-img1"></div>
             <div class="bg-img2"></div>
         </div>
+        <div class="linebreak"></div>
         </article>
 
 
 
 
 
-    <div class="container">
-        <form id="pet-form">
+    <!-- <div class="container"> -->
+        <form id="pet-form" class="pet-form">
+            <h1>Search for Pets</h1>
             <div class="form-group">
-                <label for="zip">Zip Code</label>
-                <input id="zip" type="text" id="zip" class="form-control" placeholder="Enter your zipcode">
-                <!-- <input type="submit" value="Find" class="btn"> -->
-                <label for="gender">Gender</label>
-                <select id="gender" class="form-control">
-                    <option value="none">No Preference</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-                <!-- <label for="size">Size</label>
-                <select id="size" class="form-control">
-                    <option value="none">No Preference</option>
-                    <option value="dog">Small</option>
-                    <option value="dog">Medium</option>
-                    <option value="cat">Large</option>
-                    <option value="cat">XLarge</option>
-                </select>
-                <label for="age">Age</label>
-                <select id="age" class="form-control">
-                    <option value="none">No Preference</option>
-                    <option value="dog">Baby</option>
-                    <option value="cat">Young</option>
-                    <option value="cat">Adult</option>
-                    <option value="cat">Senior</option>
-                </select>
-                <label for="age">Breed</label>
-                <select id="breed" class="form-control">
-                    <option value="none">No Preference</option>
-                    <option value="dog">Baby</option>
-                    <option value="cat">Young</option>
-                    <option value="cat">Adult</option>
-                    <option value="cat">Senior</option>
-                </select>
-                <label for="distance">Distance</label>
-                <input class="required" type="number" id="distance" min="1" max="500" placeholder="10 miles"> -->
+                    <label for="zip">Zip Code</label>
+                    <input id="zip" type="text" id="zip" class="form-control" placeholder="Enter your zipcode">
+                    <label for="gender">Gender</label>
+                    <select id="gender" class="form-control">
+                        <option value="none">No Preference</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <label for="size">Size</label>
+                    <select id="size" class="form-control">
+                        <option value="none">No Preference</option>
+                        <option value="dog">Small</option>
+                        <option value="dog">Medium</option>
+                        <option value="cat">Large</option>
+                        <option value="cat">XLarge</option>
+                    </select>
+                    <label for="age">Age</label>
+                    <select id="age" class="form-control">
+                        <option value="none">No Preference</option>
+                        <option value="dog">Baby</option>
+                        <option value="cat">Young</option>
+                        <option value="cat">Adult</option>
+                        <option value="cat">Senior</option>
+                    </select>
+                    <label for="age">Breed</label>
+                    <select id="breed" class="form-control">
+                        <option value="none">No Preference</option>
+                        <option value="dog">Baby</option>
+                        <option value="cat">Young</option>
+                        <option value="cat">Adult</option>
+                        <option value="cat">Senior</option>
+                    </select>
+                    <label for="distance">Distance</label>
+                    <input class="required" type="number" id="distance" min="1" max="500" placeholder="10 miles">
                 
-                
+                <button class="btn submit">Submit</button>
             </div>
             <!-- <a href="/new.html"> -->
-                <button>Submit</button>
+                
             <!-- </a> -->
         </form>
 
     <section class="container">
         <h2>Recently Added Animals</h2>
-        <div id="adoptable-dogs" class="grid">
+        <div id="adoptable-dogs" class="grid adoptable-dogs">
             <!-- start of one card -->
             <!-- <div class="card">
                 <a href="index.html?id=1">
-                    <img src="images/puppy-placeholder.jpg" class="card-img-top" alt="Movie Title" />
+                    <img src="images/puppy-placeholder.jpg" class="card-img-top" alt="image of animal" />
                 </a>
                 <div class="card-body">
                     <h5 class="card-title">Puppy Name</h5>

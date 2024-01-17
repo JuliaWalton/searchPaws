@@ -1,7 +1,7 @@
 @use 'root';
 
 .welcome {
-    height: 100vh;
+    // height: 100vh;
     margin-inline: 2rem; 
 }
 
@@ -77,7 +77,7 @@
 
 .welcome-hero {
     position: relative;
-    height: 680px;
+    height: 600px;
 }
 
 .scroll img {
@@ -86,15 +86,17 @@
 }
 
 .scroll {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
     display: grid;
-    // justify-content: center;
     align-content: center;
-    margin: auto;
     text-align: center;
     border-radius: 50%;
     border: 1px solid white;
     aspect-ratio: 1/1;
-    width: 200px;
+    width: 150px;
 }
 
 .bg-img1 {
@@ -125,8 +127,17 @@
     z-index: 5;
 }
 
+// .linebreak {
+//     background-color: root.$secondary-color;
+//     width: 100%;
+//     padding: 7.25rem;
+// }
+
+
+
 @media (max-width: 580px) {
     .bg-img2 {
         background-image: none;
     }
 }
+
