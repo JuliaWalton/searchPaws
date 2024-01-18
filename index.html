@@ -21,17 +21,18 @@
     <article class="welcome">
     <header class="main-header">
             <nav>
+                <div class="paw-print-bg"></div>
                 <div class="logo">
                 <a href="index.html">SearchPaws
                 <img src="images/paw-prints.png" alt="paw prints" width="30px"></a>
             </div>
                 <ul>
-                    <li>
+                    <!-- <li>
                         <a class="nav-link" href="/dogs.html">Dogs</a>
                     </li>
                     <li>
                         <a class="nav-link" href="/cats.html">Cats</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a class="nav-link" href="/saved.html">
                             <i class="fas fa-heart"></i>
@@ -44,7 +45,7 @@
         <div class="welcome-hero">
             <div class="welcome-dynamic-callout fanout">
                 <div class="callout one">
-                    <h2>Save your most compatable furry friends</h2>
+                    <h2>Save your favorite furry friends</h2>
                 </div>
                 <div class="callout two">
                     <h2>Discover local dogs and cats in need</h2>
@@ -53,12 +54,14 @@
                     <h2>Browse by category for your new BFF</h2>
                 </div>
             </div>
-            <div class="scroll">
+            <!-- <div class="scroll">
                 <p>scroll to search</p>
                 <img src="images/mouse.png" width="30px" alt="">
-            </div>
+            </div> -->
             <div class="bg-img1"></div>
-            <div class="bg-img2"></div>
+            <div class="wrapper">
+                <div class="bg-img2"></div>
+            </div>
         </div>
         <div class="linebreak"></div>
         </article>
@@ -73,38 +76,38 @@
             <div class="form-group">
                     <label for="zip">Zip Code</label>
                     <input id="zip" type="text" id="zip" class="form-control" placeholder="Enter your zipcode">
+                    <label for="age">Animal</label>
+                    <select id="animal" class="form-control">
+                        <option value="none">No Preference</option>
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                    </select>
+                    <label for="size">Size</label>
+                    <select id="size" class="form-control">
+                        <option value="none">No Preference</option>
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                        <option value="xlarge">XLarge</option>
+                    </select>
+                    <label for="distance">Distance</label>
+                    <input class="required" type="number" id="distance" min="1" max="500" placeholder="10 miles">
                     <label for="gender">Gender</label>
                     <select id="gender" class="form-control">
                         <option value="none">No Preference</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
-                    <label for="size">Size</label>
-                    <select id="size" class="form-control">
-                        <option value="none">No Preference</option>
-                        <option value="dog">Small</option>
-                        <option value="dog">Medium</option>
-                        <option value="cat">Large</option>
-                        <option value="cat">XLarge</option>
-                    </select>
                     <label for="age">Age</label>
                     <select id="age" class="form-control">
                         <option value="none">No Preference</option>
-                        <option value="dog">Baby</option>
-                        <option value="cat">Young</option>
-                        <option value="cat">Adult</option>
-                        <option value="cat">Senior</option>
+                        <option value="baby">Baby</option>
+                        <option value="young">Young</option>
+                        <option value="adult">Adult</option>
+                        <option value="senior">Senior</option>
                     </select>
-                    <label for="age">Breed</label>
-                    <select id="breed" class="form-control">
-                        <option value="none">No Preference</option>
-                        <option value="dog">Baby</option>
-                        <option value="cat">Young</option>
-                        <option value="cat">Adult</option>
-                        <option value="cat">Senior</option>
-                    </select>
-                    <label for="distance">Distance</label>
-                    <input class="required" type="number" id="distance" min="1" max="500" placeholder="10 miles">
+                    
+                    
                 
                 <button class="btn submit">Submit</button>
             </div>
@@ -132,7 +135,9 @@
             </div> -->
             <!-- end of one card -->
         </div>
-    </div>
+    <footer>
+        
+    </footer>
 
 
     </main>
