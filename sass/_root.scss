@@ -5,17 +5,19 @@
 $primary-font: 'work sans', sans-serif;
 
 $fw-semibold: 500;
-$fw-bold: 600;
+$fw-bold: 700;
 
 $fs-xlarge: clamp(3rem, 2.8rem + 1vw, 4rem);
-;
-$fs-reg: 1rem;
+$fs-large: clamp(1.5rem, 1.4rem + 0.5vw, 2rem);
+$fs-reg: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
 $fs-small: clamp(0.85rem, 0.82rem + 0.15000000000000002vw, 1rem);
 
-$radius: 2rem;
+$transition: all 0.5s ease-in-out;
 
 $primary-accent-color: #a2f084;
 $primary-color: #8488f0;
 $secondary-color: #f29b72;
 $neutral-white: rgb(255, 255, 255);
 $neutral-black: rgb(0, 0, 0);
+
+$box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);

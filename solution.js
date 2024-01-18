@@ -3,7 +3,6 @@ const globalState = {
 };
 console.log(globalState)
 
-// to get breeds use this /v2/types/dog
 
 async function APIController(endpoint) {
     console.log(endpoint)
@@ -19,7 +18,7 @@ async function APIController(endpoint) {
         const result = await fetch(`https://api.petfinder.com/v2/oauth2/token`, {
             method: 'POST',
             headers: {'Accept': 'application/json, text/plain, */*',
-                'Content-Type':'application/x-www-form-urlencoded'}, // this line is important, if this content-type is not set it wont work
+                'Content-Type':'application/x-www-form-urlencoded'}, //  if this content-type is not set it wont work
             body: 
                 `grant_type=${grantType}&client_id=${clientID}&client_secret=${clientSecret}`
             
@@ -49,12 +48,9 @@ async function APIController(endpoint) {
     return _makeCall();
 }
 
-// const zip = document.querySelector('#zip').value;
-// const gender = document.querySelector('#gender').value;
-// console.log(gender)
+
+// Execute the API calls based on form data
 const petForm = document.getElementById('pet-form');
-
-
 petForm.addEventListener('submit', executeApiCalls)
 
 async function executeApiCalls(e) {
@@ -65,8 +61,7 @@ async function executeApiCalls(e) {
     const age = document.querySelector('#age').value;
     const distance = document.querySelector('#distance').value;
 
-        e.preventDefault(); 
-    // Example API calls
+    e.preventDefault(); 
 
     const formData = {
         type: `${animal}`,
@@ -77,7 +72,6 @@ async function executeApiCalls(e) {
         distance: `${distance}`,
     }
 
-
     for (const [key, value] of Object.entries(formData)) {
         if (value === 'none' || value === '') {
             delete formData[key];
@@ -85,140 +79,62 @@ async function executeApiCalls(e) {
         } 
     }
 
-    
-
-
     const queryParams = new URLSearchParams(formData);
-    console.log(queryParams.toString());
+    // console.log(queryParams.toString());
 
     const result = await APIController(`?` + queryParams.toString());
-
-    
-            (async () => {
-                const data = await result;
-                displayDogs(data.animals)
-                })();
-
-
-    // switch(true) {
-    //     case 'none':
-    //         const resultnone = await APIController(``);
-    //         (async () => {
-    //             const data = await resultnone;
-    //             displayDogs(data.animals)
-    //             })();
-    //     break;
-    //     case animal !== 'none':
-    //         const result = await APIController(`?type=${animal}`);
-    //         (async () => {
-    //             const data = await result;
-    //             displayDogs(data.animals)
-    //             })();
-
-    // }
-
-
+        (async () => {
+            const data = await result;
+            displayDogs(data.animals)
+            })();
 }
 
-
-    // if (zip !== "" && gender === 'none') {
-    //     const result1 = await APIController(`?type=dog&location=${zip}`);
-    //     (async () => {
-    //         const data = await result1;
-    //         displayDogs(data.animals)
-    //         })();
-    // }
-    // else if (zip === "" && gender === 'none') {
-    //     const result = await APIController(``);
-    //     (async () => {
-    //         const data = await result;
-    //         displayDogs(data.animals)
-    //         })();
-    //         // YOU NEED TO CREATE AND DISPLAY AND ERROR MESSAGE FOR THIS SCENARIO INSTEAD OF ABOVE CODE
-    // }
-    // if (gender !== 'none' && zip !== "") {
-    //     const result2 = await APIController(`?type=dog&location=${zip}&gender=${gender}`);
-    //     (async () => {
-    //         const data = await result2;
-    //         displayDogs(data.animals)
-    //         })();
-    // }
-    
-
-
-
-
-//   const result2 = await makeApiCall(`&location=${gender}`, { param2: "value2" });
-//   const result3 = await makeApiCall("endpoint3"); 
-
-//   Use the results as needed
-//   if (zip !== "") {
-//     result1;
-//     displayDogs();
-//   }
-
-//   if (result2) {
-//     console.log("Result 2:", result2);
-//   }
-
-//   if (result3) {
-//     console.log("Result 3:", result3);
-//   }
-
-
-
-
-// Execute the API calls
-// executeApiCalls();
 
 // display 20 dogs
 async function displayDogs(animals) {
     document.querySelector('#adoptable-dogs').innerHTML = "";
-    // use destructuring {} to get just the results array from that object
-    // const { animals } = await APIController();
-    console.log(animals);
+    // console.log(animals);
 
     animals.forEach(dog => {
         const dogCardDiv = document.createElement('div');
         dogCardDiv.classList.add('card');
         dogCardDiv.innerHTML = `
-          <a href="animal-details.html?id=${dog.id}">
-            ${
-                dog.photos.length >= 1
-                ? `<img
-                    src="${dog.photos[0].full}"
-                    class="card-img-top"
-                    alt="image of ${dog.name}"
-                    />` 
-                : `<img
-                    src="../images/no-image.jpg"
-                    class="card-img-top"
-                    alt="there is no image for ${dog.name}"
-                    />` 
-            }
-          </a>
-          <div class="card-body">
-          <h5 class="card-title">${dog.name}</h5>
-                    <p class="card-text">
-                    <p class="supporting-text">${dog.age}</p>
-                        <p class="supporting-text">${dog.gender}</p>
+            <a href="animal-details.html?id=${dog.id}">
+                ${
+                    dog.photos.length >= 1
+                    ? `<img
+                        src="${dog.photos[0].full}"
+                        class="card-img-top"
+                        alt="image of ${dog.name}"
+                        />` 
+                    : `<img
+                        src="../images/no-image.jpg"
+                        class="card-img-top"
+                        alt="there is no image for ${dog.name}"
+                        />` 
+                }
+            </a>
+            <div class="card-body">
+            <h5 class="card-title">${dog.name}</h5>
+                        <p class="card-text">
+                        <div class="details-description-flex">
+                            <p class="supporting-text">${dog.age} |</p>
+                            <p class="supporting-text">${dog.gender}</p>
+                        </div>
                         <p class="supporting-text">${dog.breeds.primary}</p>
-                        ${ dog.distance === null
-                        ? `<p class="supporting-text">Location not specified</p>` 
-                        : `<p class="supporting-text">${roundMiles(dog.distance)} miles away</p>`
-                        }
-          </div>`;
+                            ${ dog.distance === null
+                            ? `<p class="supporting-text">Location not specified</p>` 
+                            : `<p class="supporting-text">${roundMiles(dog.distance)} miles away</p>`
+                            }
+            </div>`;
         
-
-          document.querySelector('#adoptable-dogs').appendChild(dogCardDiv)
+        document.querySelector('#adoptable-dogs').appendChild(dogCardDiv)
     })
 }
 
 function roundMiles(dogdistance) {
     return Math.round(dogdistance);
 }
-console.log(window.location.search.split('=')[0]);
-const animalID = window.location.search.split('=')[1];
 
 
 // const cards = document.querySelectorAll('card');
@@ -230,68 +146,64 @@ const animalID = window.location.search.split('=')[1];
 
 // display animal details
 async function displayAnimalDetails() {
-    console.log(window.location.search);
+    // console.log(window.location.search);
     const animalID =  window.location.search.split('=')[1];
-    
     const dog = await APIController(`/${animalID}`);
-    console.log(dog)
 
     const div = document.createElement('div');
     div.innerHTML = `
         <div class="details-card">
-          <div class="details-img">
-            ${
-                dog.animal.photos.length >= 1
-                ? `<img
-                    src="${dog.animal.photos[0].full}"
-                    class="card-img-top"
-                    alt="image of ${dog.animal.name}"
-                    />` 
-                : `<img
-                    src="../images/no-image.jpg"
-                    class="card-img-top"
-                    alt="there is no image for ${dog.animal.name}"
-                    />` 
-            }
-          </div>
-          <div class="details-description">
-            <div class="details-description-flex">
-                <h2 class="name">${dog.animal.name}</h2>
-                <p class="breed">${dog.animal.breeds.primary}</p>
+            <div class="details-img">
+                ${
+                    dog.animal.photos.length >= 1
+                    ? `<img
+                        src="${dog.animal.photos[0].full}"
+                        class="card-img-top"
+                        alt="image of ${dog.animal.name}"
+                        />` 
+                    : `<img
+                        src="../images/no-image.jpg"
+                        class="card-img-top"
+                        alt="there is no image for ${dog.animal.name}"
+                        />` 
+                }
             </div>
-            <div class="details-description-flex">
-                <p>${dog.animal.age}</p>
-                <p>${dog.animal.gender}</p>
-                <p>${dog.animal.size}</p>
-            </div>
-            <h4>Contact Information</h4>
-            <p>Email: ${dog.animal.contact.email}</p>
-            <p>Phone: ${dog.animal.contact.phone}</p>
-            <div class="details-description-flex">
-                <p>Address: ${dog.animal.contact.address.address1}</p>
-                <p>City: ${dog.animal.contact.address.city}</p>
+            <div class="details-description">
                 <div class="details-description-flex">
-                    <p>State: ${dog.animal.contact.address.state}</p>
-                    <p>Country: ${dog.animal.contact.address.country}</p>
+                    <h2 class="name">${dog.animal.name}</h2>
+                    <p class="breed">${dog.animal.breeds.primary}</p>
                 </div>
+                <div class="details-description-flex">
+                    <p>${dog.animal.age}</p>
+                    <p>${dog.animal.gender}</p>
+                    <p>${dog.animal.size}</p>
+                </div>
+                <h4>Contact Information</h4>
+                <p>Email: ${dog.animal.contact.email}</p>
+                <p>Phone: ${dog.animal.contact.phone}</p>
+                <div class="details-description-flex">
+                    <p>Address: ${dog.animal.contact.address.address1}</p>
+                    <p>City: ${dog.animal.contact.address.city}</p>
+                    <div class="details-description-flex">
+                        <p>State: ${dog.animal.contact.address.state}</p>
+                        <p>Country: ${dog.animal.contact.address.country}</p>
+                    </div>
+                </div>
+                <h4>Attributes</h4>
+                <div class="details-description-grid">
+                <p>House Trained: ${dog.animal.attributes.house_trained}</p>
+                <p>Current Shots: ${dog.animal.attributes.shots_current}</p>
+                <p>Spayed or Neutered: ${dog.animal.attributes.spayed_neutered}</p>
+                <p>Special Needs: ${dog.animal.attributes.special_needs}</p>
+                </div>
+                <h4>Description</h4>
+                <p>${dog.animal.description}</p>
+                <p class="tags-container">Characteristics: ${dog.animal.tags}</p>
+                
+                <a href="${dog.animal.url}" target="_blank" class="btn">Visit Homepage</a>
             </div>
-            <h4>Attributes</h4>
-            <div class="details-description-flex attributes">
-            <p>House Trained: ${dog.animal.attributes.house_trained}</p>
-            <p>Current Shots: ${dog.animal.attributes.shots_current}</p>
-            <p>Spayed or Neutered: ${dog.animal.attributes.spayed_neutered}</p>
-            <p>Special Needs: ${dog.animal.attributes.special_needs}</p>
-            </div>
-            <h4>Description</h4>
-            <p>${dog.animal.description}</p>
-            <p class="tags-container">Characteristics: ${dog.animal.tags}</p>
-            
-            <a href="${dog.animal.url}" target="_blank" class="btn">Visit Homepage</a>
-          </div>
         </div>`;
-
         document.querySelector('#animal-details').appendChild(div);
-
 }
 
 
@@ -327,37 +239,3 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
-
-
-
-
-
-    // if (zip !== "" && gender === 'none') {
-    //     const result1 = await APIController(`?type=dog&location=${zip}`);
-    //     (async () => {
-    //         const data = await result1;
-    //         displayDogs(data.animals)
-    //         })();
-    // }
-    // else if (zip === "" && gender === 'none') {
-    //     const result = await APIController(``);
-    //     (async () => {
-    //         const data = await result;
-    //         displayDogs(data.animals)
-    //         })();
-    //         // YOU NEED TO CREATE AND DISPLAY AND ERROR MESSAGE FOR THIS SCENARIO INSTEAD OF ABOVE CODE
-    // }
-    // else if (gender !== 'none' && zip !== "") {
-    //     const result2 = await APIController(`?type=dog&location=${zip}&gender=${gender}`);
-    //     (async () => {
-    //         const data = await result2;
-    //         displayDogs(data.animals)
-    //         })();
-    // }
-    // else if (animal !== 'none' && animal === 'dog') {
-    //     const resultdog = await APIController(`?type=dog`);
-    //     (async () => {
-    //         const data = await resultdog;
-    //         displayDogs(data.animals)
-    //         })();
-    // }

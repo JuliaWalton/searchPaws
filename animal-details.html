@@ -27,12 +27,6 @@
             </div>
             <ul>
                 <li>
-                    <a class="nav-link" href="/dogs.html">Dogs</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="/cats.html">Cats</a>
-                </li>
-                <li>
                     <a class="nav-link" href="/saved.html">
                         <i class="fas fa-heart"></i>
                     </a>
@@ -40,30 +34,47 @@
             </ul>
         </nav>
     </header>
-
-    <!-- Animal Details -->
+    <!-- Animal Detail Sheet -->
     <section class="container">
         <div class="back">
             <a class="btn" href="index.html">Back To Search</a>
         </div>
         <!-- Animal Details Output -->
         <div id="animal-details" class="animal-details">
-            <!-- <div class="details-card">
-                <div class="details-img">
-                    <img src="../images/no-image.jpg" class="card-img-top" alt="there is no image for ${dog.animal.name}" />
-                </div>
+            <!-- 
                 <div class="details-description">
-                    <h2>${dog.animal.name}</h2>
-                    <p>${dog.animal.age}</p>
-                    <p>${dog.animal.gender}</p>
-                    <p>${dog.animal.breeds.primary}</p>
-                    <p>${dog.animal.size}</p>
-                    <p>${dog.animal.contact} contact</p>
-                    <p>${dog.animal.attributes} attributes </p>
-                    <p>${dog.animal.description}</p>
-                    <p>${dog.animal.tags}</p>
-                    <a href="${dog.animal.url}" target="_blank" class="btn">Visit Shelter Homepage</a>
+                    <div class="details-description-flex">
+                        <h2 class="name">${dog.animal.name}</h2>
+                        <p class="breed">${dog.animal.breeds.primary}</p>
+                    </div>
+                    <div class="details-description-flex">
+                        <p>${dog.animal.age}</p>
+                        <p>${dog.animal.gender}</p>
+                        <p>${dog.animal.size}</p>
+                    </div>
+                <h4>Contact Information</h4>
+                <p>Email: ${dog.animal.contact.email}</p>
+                <p>Phone: ${dog.animal.contact.phone}</p>
+                    <div class="details-description-flex">
+                        <p>Address: ${dog.animal.contact.address.address1}</p>
+                        <p>City: ${dog.animal.contact.address.city}</p>
+                        <div class="details-description-flex">
+                            <p>State: ${dog.animal.contact.address.state}</p>
+                            <p>Country: ${dog.animal.contact.address.country}</p>
+                    </div>
                 </div>
+                <h4>Attributes</h4>
+                    <div class="details-description-grid">
+                        <p>House Trained: ${dog.animal.attributes.house_trained}</p>
+                        <p>Current Shots: ${dog.animal.attributes.shots_current}</p>
+                        <p>Spayed or Neutered: ${dog.animal.attributes.spayed_neutered}</p>
+                        <p>Special Needs: ${dog.animal.attributes.special_needs}</p>
+                    </div>
+                <h4>Description</h4>
+                <p>${dog.animal.description}</p>
+                <p class="tags-container">Characteristics: ${dog.animal.tags}</p>
+            
+                <a href="${dog.animal.url}" target="_blank" class="btn">Visit Homepage</a>
             </div> -->
         </div>
         <!-- <div class="details-bottom">

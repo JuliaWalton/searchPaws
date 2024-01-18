@@ -1,5 +1,6 @@
 @use 'reset';
 @use 'root';
 @use 'global';
-@use '_welcome';
+@use 'welcome';
+@use 'animal-content';
 @use 'animal-details';
