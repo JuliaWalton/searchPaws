@@ -212,7 +212,8 @@ console.log(globalState.currentPage);
 
 function init() {
     switch(globalState.currentPage) {
-        // case '/':
+        case '/searchPaws/':
+        case '/searchPaws/index.html':
         case '/index.html':
             const result = APIController(``);
             // console.log(result)
