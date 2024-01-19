@@ -108,7 +108,7 @@ async function displayDogs(animals) {
                         alt="image of ${dog.name}"
                         />` 
                     : `<img
-                        src="../images/no-image.jpg"
+                        src="images/no-image.jpg"
                         class="card-img-top"
                         alt="there is no image for ${dog.name}"
                         />` 
@@ -162,7 +162,7 @@ async function displayAnimalDetails() {
                         alt="image of ${dog.animal.name}"
                         />` 
                     : `<img
-                        src="../images/no-image.jpg"
+                        src="images/no-image.jpg"
                         class="card-img-top"
                         alt="there is no image for ${dog.animal.name}"
                         />` 
