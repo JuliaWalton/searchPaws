@@ -44,15 +44,21 @@
 
 .details-description-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: minmax(200px, min-content) minmax(200px, min-content);
+    grid-template-rows: auto auto;
     justify-items: start;
+    gap: 1rem;
 }
+
+// .details-description-grid:nth-of-type(3){
+
+// }
 
 @media (max-width: 530px) {
     .details-description-grid {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(4, 1fr);
+        gap: 1rem;
     }
 }
 
