@@ -188,7 +188,22 @@
 
 
 .clear-search {
-    padding: 1rem;
-    background-color: grey;
-    border: 1px solid black;
+    color: root.$neutral-white;
+    text-decoration: underline;
+    grid-column: 1/-1;
+    justify-self: end;
+}
+
+.pagination-btns {
+    display: grid;
+    // gap: 1rem;
+    grid-template-columns: auto 1fr;
+}
+
+.pagination-btns:first-child {
+    margin-left: -15px;
+}
+
+.pagination {
+    margin-inline: 4rem;
 }

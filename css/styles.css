@@ -311,9 +311,23 @@ nav {
   }
 }
 .clear-search {
-  padding: 1rem;
-  background-color: grey;
-  border: 1px solid black;
+  color: rgb(255, 255, 255);
+  text-decoration: underline;
+  grid-column: 1/-1;
+  justify-self: end;
+}
+
+.pagination-btns {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.pagination-btns:first-child {
+  margin-left: -15px;
+}
+
+.pagination {
+  margin-inline: 4rem;
 }
 
 .pet-form {
@@ -477,15 +491,20 @@ nav {
   text-align: center;
 }
 
+.animal-details .name {
+  font-family: "Sriracha";
+  font-weight: 500;
+  font-size: 3rem;
+}
+
 .name {
   font-size: 2rem;
 }
 
 .details-img {
   background-color: rgb(255, 255, 255);
-  max-width: 500px;
+  max-width: 100%;
   height: 100%;
-  justify-self: center;
 }
 
 .details-card .card-img-top {
@@ -502,10 +521,33 @@ nav {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
+#tags-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, auto));
+  gap: 0.5rem;
+  max-width: 380px;
+  align-items: center;
+}
+
+#tags-container div {
+  background-color: #a2f084;
+  text-align: center;
+  color: #8488f0;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.highlight p {
+  color: #8488f0;
+  font-weight: bold;
+}
+
 @media (min-width: 800px) {
   .details-card {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
   }
   .paw-print-bg {
     background-image: url("../images/paw-print-grid-background.png");
@@ -514,9 +556,13 @@ nav {
     place-items: end;
   }
 }
-.saved .details-img {
-  width: 500px;
-  height: 400px;
+.details-card.saved img {
+  width: 100%;
+  height: 100%;
+}
+
+.details-card.saved .card-img-top {
+  height: 500px;
 }
 
 .details-card.saved {
@@ -544,4 +590,11 @@ i.fas.fa-times:hover {
 
 .clear-all:hover {
   text-decoration: underline;
+}
+
+@media (min-width: 800px) {
+  .details-card.saved {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+    max-height: 500px;
+  }
 }/*# sourceMappingURL=styles.css.map */

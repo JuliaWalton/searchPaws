@@ -76,15 +76,21 @@
     text-align: center;
 }
 
+.animal-details .name {
+    font-family: "Sriracha";
+    font-weight: 500;
+    font-size: 3rem;
+}
+
 .name {
     font-size: 2rem;
 }
 
 .details-img {
     background-color: root.$neutral-white;
-    max-width: 500px;
+    max-width: 100%;
     height: 100%;
-    justify-self: center;
+    // justify-self: center;
 }
 
 .details-card .card-img-top {
@@ -101,10 +107,37 @@
     border-color: rgba(255, 255, 255, 0.1);
 }
 
+#tags-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, auto));
+    gap: .5rem;
+    max-width: 380px;
+    align-items: center;
+}
+
+#tags-container div {
+    background-color: root.$primary-accent-color;
+    // justify-self: center;
+    text-align: center;
+    color: root.$primary-color;
+    // font-family: italic;
+    font-weight: root.$fw-bold;
+    font-size: .85rem;
+    padding: .3rem .5rem;
+    border-radius: .5rem;
+}
+
+.highlight p {
+    color: root.$primary-color;
+    font-weight: bold;
+}
+
+
 @media (min-width: 800px) {
     .details-card {
         display: grid;
-        grid-template-columns: auto 1fr;
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+        
     }
     .paw-print-bg {
         background-image: url('../images/paw-print-grid-background.png');

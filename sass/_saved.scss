@@ -3,19 +3,24 @@
 // animal details
 // *******************************************
 
-.saved .details-img {
-    width: 500px;
-    // max-width: 300px;
-    // height: 100%;
-    height: 400px;
+// .saved .details-img {
+//     // max-width: 500px;
+//     // max-width: 300px;
+//     // height: 100%;
+//     // height: 400px;
+// }
+
+.details-card.saved img {
+    width: 100%;
+    height: 100%;
 }
 
-// .saved .details-card .card-img-top {
-//     // width: 300px;
-//     // height: 400px;
-//     object-position: 50% 50%;
-//     object-fit: cover;
-// }
+.details-card.saved .card-img-top {
+    // width: 100%;
+    // object-position: 50% 50%;
+    // object-fit: cover;
+    height: 500px;
+}
 
 .details-card.saved {
     position: relative;
@@ -48,4 +53,12 @@ i.fas.fa-times:hover {
 
 .clear-all:hover {
     text-decoration: underline;
+}
+
+@media (min-width: 800px) {
+    .details-card.saved {
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+        max-height: 500px;
+
+    }
 }
