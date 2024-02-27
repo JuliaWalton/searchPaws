@@ -67,13 +67,13 @@
                     <input id="zip" type="text" id="zip" class="form-control" placeholder="Enter your zipcode">
                     <label for="age">Animal</label>
                     <select id="animal" class="form-control">
-                        <option value="none">No Preference</option>
+                        <option value="none" selected>No Preference</option>
                         <option value="dog">Dog</option>
                         <option value="cat">Cat</option>
                     </select>
                     <label for="size">Size</label>
                     <select id="size" class="form-control">
-                        <option value="none">No Preference</option>
+                        <option value="none" selected>No Preference</option>
                         <option value="small">Small</option>
                         <option value="medium">Medium</option>
                         <option value="large">Large</option>
@@ -83,13 +83,13 @@
                     <input class="required" type="number" id="distance" min="1" max="500" placeholder="10 miles">
                     <label for="gender">Gender</label>
                     <select id="gender" class="form-control">
-                        <option value="none">No Preference</option>
+                        <option value="none" selected>No Preference</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
                     <label for="age">Age</label>
                     <select id="age" class="form-control">
-                        <option value="none">No Preference</option>
+                        <option value="none" selected>No Preference</option>
                         <option value="baby">Baby</option>
                         <option value="young">Young</option>
                         <option value="adult">Adult</option>
@@ -99,15 +99,19 @@
                     
                 
                 <button class="btn submit">Submit</button>
+                
             </div>
+            <p class="clear-search">Clear Search Filters</p>
             <!-- <a href="/new.html"> -->
                 
             <!-- </a> -->
         </form>
 
     <section class="container">
-        <h2 class="dynamic-header">Recently Added Animals</h2>
-        <div id="adoptable-dogs" class="grid adoptable-dogs">
+        <div class="flex">
+            <h2 class="dynamic-header">Recently Added Animals</h2>
+            <div id="adoptable-dogs" class="grid adoptable-dogs">
+        </div>
             <!-- start of one card -->
             <!-- <div class="card">
                 <a href="index.html?id=1">
@@ -124,7 +128,13 @@
             </div> -->
             <!-- end of one card -->
         </div>
-
+    <div id="pagination">
+        <!-- <div class="pagination">
+            <button class="btn btn-primary" id="prev">Prev</button>
+            <button class="btn btn-primary" id="next">Next</button>
+            <div class="page-counter">Page 1 of 5</div>
+        </div> -->
+    </div>
     <footer>
     </footer>
 

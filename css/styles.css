@@ -310,6 +310,12 @@ nav {
     margin: 2rem auto 0;
   }
 }
+.clear-search {
+  padding: 1rem;
+  background-color: grey;
+  border: 1px solid black;
+}
+
 .pet-form {
   padding: 2rem 5rem;
   background-color: #f29b72;
@@ -507,4 +513,35 @@ nav {
   .welcome-fanout {
     place-items: end;
   }
+}
+.saved .details-img {
+  width: 500px;
+  height: 400px;
+}
+
+.details-card.saved {
+  position: relative;
+}
+
+i.fas.fa-times {
+  color: #f29b72;
+  position: absolute;
+  top: 30px;
+  right: 40px;
+}
+
+i.fas.fa-times:hover {
+  transform: scale(1.4);
+  transition: all 0.5s ease-in-out;
+}
+
+.flex-clear {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 2rem;
+}
+
+.clear-all:hover {
+  text-decoration: underline;
 }/*# sourceMappingURL=styles.css.map */

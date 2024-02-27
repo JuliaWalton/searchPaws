@@ -1,0 +1,51 @@
+@use 'root';
+// *******************************************
+// animal details
+// *******************************************
+
+.saved .details-img {
+    width: 500px;
+    // max-width: 300px;
+    // height: 100%;
+    height: 400px;
+}
+
+// .saved .details-card .card-img-top {
+//     // width: 300px;
+//     // height: 400px;
+//     object-position: 50% 50%;
+//     object-fit: cover;
+// }
+
+.details-card.saved {
+    position: relative;
+}
+
+// .remove-item { 
+//     // display: none;
+//     // background-color: transparent;
+// }
+
+i.fas.fa-times {
+    color: root.$secondary-color;
+    position: absolute;
+    top: 30px;
+    right: 40px;
+}
+
+
+i.fas.fa-times:hover {
+    transform: scale(1.4);
+    transition: root.$transition;
+}
+
+.flex-clear {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 2rem;
+}
+
+.clear-all:hover {
+    text-decoration: underline;
+}

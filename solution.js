@@ -5,6 +5,11 @@ const baseUrl = "https://api.petfinder.com/v2/animals";
 
 const globalState = {
     currentPage: window.location.pathname,
+    pagination: {
+    page: 1,
+    totalPages: 1,
+    totalResults: 0,
+    },
 };
 // console.log(globalState);
 
@@ -37,7 +42,7 @@ async function _makeCall(endpoint) {
     try {
         const accessToken = await _getToken();
         // console.log(accessToken)
-        const result = await fetch(`${url}`, {
+        const result = await fetch(`${url}&page=${currentPageToStorage()}`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -71,6 +76,7 @@ const petForm = document.getElementById('pet-form');
 petForm.addEventListener('submit', async (e) => {
     e.preventDefault(); 
     
+    
     const animal = document.querySelector('#animal').value;
     const zip = document.querySelector('#zip').value;
     const gender = document.querySelector('#gender').value;
@@ -87,16 +93,13 @@ petForm.addEventListener('submit', async (e) => {
         distance: `${distance}`,
     }
     
-    //     for (const [key, value] of Object.entries(formData)) {
-    //     if (value === 'none' || value === '' || value === 'undefined') {
-    //         delete formData[key];
-    //         console.log(formData)
-    //     } 
-    // }
+    
     const modData = checkEmpty(formData);
 
     // console.log(saveFormData(formData))
     saveFormData(modData);
+
+    
 
     await executeApiCalls(modData);
 })
@@ -131,7 +134,7 @@ async function executeApiCalls(formData) {
         const result = await _makeCall(`?` + queryParams.toString());
             (async () => {
                 const data = await result;
-                displayDogs(data.animals)
+                displayDogs(data)
                 })();
     } catch(error) {
         console.error('Error executing API calls.', error)
@@ -143,9 +146,16 @@ async function executeApiCalls(formData) {
 
 
 // display 20 dogs
-async function displayDogs(animals) {
+async function displayDogs(data) {
+    // clear prev results
     document.querySelector('#adoptable-dogs').innerHTML = "";
-    // console.log(animals);
+    // document.querySelector('#heading').innerHTML = "";
+    document.querySelector('#pagination').innerHTML = "";
+
+    console.log(data.animals);
+    const animals = data.animals;
+    const dynamicHeader = document.querySelector('.dynamic-header');
+    dynamicHeader.textContent = `${data.pagination.count_per_page} of ${data.pagination.total_count} animals`;
 
     animals.forEach(dog => {
         const dogCardDiv = document.createElement('div');
@@ -181,18 +191,95 @@ async function displayDogs(animals) {
             </div>`;
         
         document.querySelector('#adoptable-dogs').appendChild(dogCardDiv)
+
     })
+
+    displayPagination(data.pagination);
 }
 
 function roundMiles(dogdistance) {
     return Math.round(dogdistance);
 }
 
+function displayPagination(pagination) {
+    console.log(pagination)
+    const div = document.createElement('div');
+    div.classList.add('pagination');
+    div.innerHTML = `
+            <p class="btn btn-primary" id="prev">Prev</p>
+            <p class="btn btn-primary" id="next">Next</p>
+            <div class="page-counter">Page ${pagination.current_page} of ${pagination.total_pages}</div>`
+
+    document.querySelector('#pagination').appendChild(div);
+
+    // disable prev button if on first page
+    if (globalState.pagination.page === 1) {
+        document.querySelector('#prev').disabled = true;
+    }
+
+    // disable next button if on last page
+    if (globalState.pagination.page === globalState.pagination.totalPages) {
+        document.querySelector('#next').disabled = true;
+    }
+
+    // let currentPage = currentPageToStorage();
+
+    // next page
+    document.querySelector('#next').addEventListener('click', async () => {
+        globalState.pagination.page++;
+        // currentPageToStorage();
+        localStorage.setItem('currentPage', JSON.stringify(currentPageToStorage() + 1));
+        // console.log(globalState.pagination.page)
+        currentPageToStorage();
+        const storedFormData = loadFormData();
+        // console.log(currentPageToStorage())
+        const modifiedData = checkEmpty(storedFormData)
+        await executeApiCalls(modifiedData); 
+    })
+
+    document.querySelector('#prev').addEventListener('click', async () => {
+        globalState.pagination.page--;
+        // console.log(globalState.pagination.page)
+        const storedFormData = loadFormData();
+        // console.log(storedFormData)
+        const modifiedData = checkEmpty(storedFormData)
+        await executeApiCalls(modifiedData); 
+    })
+}
+
+// Event listener for next page button
+// document.getElementById('nextPageButton').addEventListener('click', function () {
+//     currentPage++;
+//     fetchData(currentPage);
+// });
+
+// // Event listener for previous page button
+// document.getElementById('prevPageButton').addEventListener('click', function () {
+//     if (currentPage > 1) {
+//         currentPage--;
+//         fetchData(currentPage);
+//     }
+// });
+
+// // You can also provide input for users to jump to a specific page
+// document.getElementById('jumpToPageButton').addEventListener('click', function () {
+//     const pageInput = document.getElementById('pageInput').value;
+//     if (pageInput && !isNaN(pageInput) && pageInput > 0) {
+//         currentPage = parseInt(pageInput);
+//         fetchData(currentPage);
+//     }
+// });
+
+
+
+
 // display animal details
 async function displayAnimalDetails() {
     console.log(window.location.search);
+
     const animalID =  window.location.search.split('=')[1];
     const dog = await _makeCall(`/${animalID}`);
+    
 
     const div = document.createElement('div');
     div.innerHTML = `
@@ -252,22 +339,47 @@ async function displayAnimalDetails() {
         document.querySelector('#animal-details').appendChild(div);
 
         const addToFavoritesButton = document.getElementById('addToFavorites');
-        addToFavoritesButton.addEventListener('click', () => 
+        addToFavoritesButton.addEventListener('click', () => saveForLater(dog.animal));
         
-        saveForLater(dog.animal));
+}
+
+function getAnimalsFromStorage() {
+    let savedAnimals;
+
+    if (localStorage.getItem('savedAnimals') === null) {
+        // set it to an empty array
+        savedAnimals = [];
+    } else {
+        // then we want to add them to the array (have to parse to get array)
+        savedAnimals = JSON.parse(localStorage.getItem('savedAnimals'));
+    }
+    return savedAnimals;
+}
+
+
+
+function currentPageToStorage() {
+    let currentPage;
+
+    if (localStorage.getItem('currentPage') === null) {
+        // set it to an empty array
+        currentPage = 1;
+    } else {
+        // then we want to add them to the array (have to parse to get array)
+        currentPage = JSON.parse(localStorage.getItem('currentPage'));
+    }
+    console.log(currentPage)
+    return currentPage;
 }
 
 function saveForLater(animal) {
-    console.log(animal)
-
-    const savedAnimals = JSON.parse(localStorage.getItem('savedAnimals')) || [];
-
-    console.log(savedAnimals)
+    let savedAnimals = getAnimalsFromStorage();
+    console.log(savedAnimals);
 
     const isAnimalAlreadySaved = savedAnimals.some(savedAnimal => savedAnimal.id === animal.id)
 
         if (!isAnimalAlreadySaved) {
-            savedAnimals.push(animal);
+            savedAnimals.unshift(animal);
             localStorage.setItem('savedAnimals', JSON.stringify(savedAnimals));
         }
 
@@ -275,13 +387,95 @@ function saveForLater(animal) {
 
 }
 
+function removeItem(e) {
+    const animal = e.target.parentElement.parentElement;
+    // console.log('wha')
+    if (e.target.classList.contains('remove-animal')) {
+        if (confirm('Are you sure you want to remove this pet?')) {
+            animal.remove();
+            removeItemFromStorage(animal);
+        }
+    }
+}
+
+
+function removeItemFromStorage(animal) {
+    let savedAnimals = getAnimalsFromStorage();
+    const id = animal.querySelector('.backToDetails').getAttribute('id');
+
+        // filter out item to be remover
+        savedAnimals = savedAnimals.filter((array) => {
+            console.log(array.id);
+            return array.id != id
+        });
+
+         console.log(savedAnimals);
+
+        // reset to localStorage
+        localStorage.setItem('savedAnimals', JSON.stringify(savedAnimals));
+}
+
+
+
+function clearAllAnimals() {
+    const clearAnimalsBtn = document.querySelector('.clear-all');
+    let animalsContainer = document.querySelector('.animal-saved');
+
+    clearAnimalsBtn.addEventListener('click', () => {
+        while(animalsContainer.firstChild) {
+        animalsContainer.removeChild(animalsContainer.firstChild);
+    }
+
+    localStorage.removeItem('savedAnimals');
+
+    })
+}
+
+clearFormInputs()
+
+function clearFormInputs() {
+switch(globalState.currentPage) {
+        case '/searchPaws/':
+        case '/searchPaws/index.html':
+        case '/index.html':
+        const clearSearchBtn = document.querySelector('.clear-search');
+        const formElements = document.querySelectorAll('input, select');
+
+        clearSearchBtn.addEventListener('click', async () => {
+            localStorage.removeItem('formData');
+            localStorage.removeItem('currentPage');
+
+            formElements.forEach(element => {
+                // console.log(element.tagName)
+                if (element.type === 'text' || element.type === 'number') {
+                    element.value = '';
+                } else if (element.tagName) {
+                    element.value = 'none';
+                }
+            })
+            const storedFormData = loadFormData();
+            console.log(storedFormData)
+            const modifiedData = checkEmpty(storedFormData)
+            await executeApiCalls(modifiedData); 
+
+    })
+   
+
+    break;
+}
+}
+
+
+// function clearAnimalStorage(item) {
+        
+// }
 
 // display saved animals
 function displaySavedAnimals(savedAnimals) {
     savedAnimals.forEach(savedAnimal => {
         const savedAnimalElement = document.createElement('div');
         savedAnimalElement.innerHTML = `
-        <div class="details-card">
+        <div class="details-card saved">
             <div class="details-img">
                 ${
                     savedAnimal.photos.length >= 1
@@ -297,10 +491,41 @@ function displaySavedAnimals(savedAnimals) {
                         />` 
                 }
             </div>
-        <p>${savedAnimal.name}</p>
+            <div class="details-description">
+                <i class="remove-animal fas fa-times"></i>
+                <div class="details-description-flex">
+                    <h2 class="name">${savedAnimal.name}</h2>
+                    <p class="breed">${savedAnimal.breeds.primary}</p>
+                </div>
+                <div class="details-description-flex">
+                    <p>${savedAnimal.age}</p>
+                    <p>${savedAnimal.gender}</p>
+                    <p>${savedAnimal.size}</p>
+                </div>
+                <div class="details-description-flex">
+                    <p>Address: ${savedAnimal.contact.address.address1}</p>
+                    <p>City: ${savedAnimal.contact.address.city}</p>
+                    <div class="details-description-flex">
+                        <p>State: ${savedAnimal.contact.address.state}</p>
+                        <p>Country: ${savedAnimal.contact.address.country}</p>
+                    </div>
+                </div>
+                <a href="animal-details.html?id=${savedAnimal.id}" id=${savedAnimal.id} class="backToDetails btn">See Details</a>
+        </div>
         `;
+
     
     document.querySelector('#animal-saved').appendChild(savedAnimalElement);
+
+    const backToDetailsButton = document.querySelector('.backToDetails');
+    backToDetailsButton.addEventListener('click', () => displayAnimalDetails());
+
+    const removeAnimalButtons = document.querySelectorAll('.remove-animal');
+    removeAnimalButtons.forEach((button) => {
+        // console.log('clicked')
+        button.addEventListener('click', removeItem);
+    })
+    
 })
 }
 
@@ -333,10 +558,11 @@ async function init() {
                 document.querySelector('#size').value = storedFormData.size;
                 document.querySelector('#age').value = storedFormData.age;
                 document.querySelector('#distance').value = storedFormData.distance;
-
                 const modifiedData = checkEmpty(storedFormData)
                 await executeApiCalls(modifiedData); 
-                console.log('ugh')
+                // console.log('ugh')
+                
+                
             }
             
             break;
@@ -348,6 +574,7 @@ async function init() {
         case '/searchPaws/saved.html':
             const savedAnimals = JSON.parse(localStorage.getItem('savedAnimals')) || [];
             displaySavedAnimals(savedAnimals);
+            clearAllAnimals()
             // const result = _makeCall(``);
             //     (async () => {
             //     const data = await result;
