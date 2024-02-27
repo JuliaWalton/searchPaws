@@ -561,16 +561,13 @@ async function init() {
                 const modifiedData = checkEmpty(storedFormData)
                 await executeApiCalls(modifiedData); 
                 // console.log('ugh')
-                
-                
             }
-            
             break;
-        case `/animal-details.html`:
-        case '/searchPaws/amenities.html':
+        case '/animal-details.html':
+        case '/searchPaws/animal-details.html':
             displayAnimalDetails()
             break;
-        case `/saved.html`:
+        case '/saved.html':
         case '/searchPaws/saved.html':
             const savedAnimals = JSON.parse(localStorage.getItem('savedAnimals')) || [];
             displaySavedAnimals(savedAnimals);
